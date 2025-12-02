@@ -140,6 +140,7 @@ class CitaData:
                 return f.read()
         return "Storage file is empty"
     
+    # resets storage upon ending of demonstration
     def cleanup(self):
         """Delete the storage file"""
         if os.path.exists(self.storage_file):
