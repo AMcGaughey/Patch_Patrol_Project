@@ -140,13 +140,12 @@ class CitaData:
                 return f.read()
         return "Storage file is empty"
     
-    # clear all storage to reset demonstration
-    def reset(self):
-        for key in self.data:
-            del self.data[key]
-            print(f"Deleted '{key}'")
-            return "Storage Emptied"
-    
+    def cleanup(self):
+        """Delete the storage file"""
+        if os.path.exists(self.storage_file):
+            os.remove(self.storage_file)
+            print(f"Storage file '{self.storage_file}' deleted.")
+        
 
 def main():
     print("=" * 60)
@@ -179,7 +178,6 @@ def main():
         print("4. Delete data")
         print("5. View raw storage file")
         print("6. Test malicious input (if validation enabled)")
-        print("7. Reset Storage (clear for demo)")
         print("0. Exit")
         print("=" * 60)
         
@@ -227,11 +225,8 @@ def main():
                 print(f"\nTest: key='{key}', value='{value}'")
                 storage.store(key, value)
         
-        elif choice == '7':
-            storage.reset()
-            break
-        
         elif choice == '0':
+            storage.cleanup()
             print("\nExiting...")
             break
         
